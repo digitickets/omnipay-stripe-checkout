@@ -31,7 +31,13 @@ And run composer to update your dependencies:
 
 ## What's Included
 
-This driver handles transactions being processed by the "Checkout" process of Stripe.
+This driver handles transactions being processed by the ["Checkout" process of Stripe](https://stripe.com/docs/payments/checkout).
+
+It is [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication)\-aware.
+
+It assumes you will use the [redirect method in the browser page](https://stripe.com/docs/payments/checkout/one-time#redirect-checkout) (ie that you will not host the card form).
+
+We have done the minimum necessary to get our system to work. If you need any further functionality, please sumbit a pull request (or ask us to make the change)
 
 ## What's Not Included
 
