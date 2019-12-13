@@ -1,0 +1,6 @@
+parameters:
+    autoload_files:
+        - vendor/autoload.php
+    ignoreErrors:
+        - '#Access to an undefined property scpService_credentials::\$identifier#' # bad wsdl missing bits
+        - '#\(token\) does not accept string#' # wsdl defines "token" but doesn't reference it properly
