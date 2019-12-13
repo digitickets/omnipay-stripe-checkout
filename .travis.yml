@@ -1,0 +1,52 @@
+language: php
+
+sudo: false
+
+git:
+  depth: 2
+
+matrix:
+  include:
+  - php: 7.0
+    env: PHPSTAN=true COVERAGE=true
+  - php: 7.1
+  - php: 7.2
+    env: PHPSTAN=true
+  - php: nightly
+  - php: hhvm
+    sudo: required
+    dist: trusty
+    group: edge
+  allow_failures:
+  - php: nightly
+  - php: 7.2
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+  - $HOME/.php-cs-fixer
+
+before_install:
+- source .travis/xdebug.sh
+- xdebug-disable
+
+before_script:
+- travis_retry composer self-update
+- travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist -vvv --profile
+
+script:
+- if [[ $PHPSTAN == "true" ]]; then
+    composer require --dev phpstan/phpstan:^0.6 && vendor/bin/phpstan analyse -c phpstan.neon -l 3 src;
+  fi;
+- if [[ "$COVERAGE" == "true" ]]; then
+    xdebug-enable;
+    vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml;
+    xdebug-disable;
+  else
+   vendor/bin/phpunit;
+  fi;
+
+after_success:
+- if [[ "$COVERAGE" == "true" ]]; then
+    travis_retry php vendor/bin/coveralls;
+  fi;
