@@ -2,30 +2,8 @@
 
 namespace DigiTickets\Stripe\Messages;
 
-use Omnipay\Common\Message\AbstractRequest;
-
-class PurchaseRequest extends AbstractRequest
+class PurchaseRequest extends AbstractCheckoutRequest
 {
-    /**
-     * Get the gateway API Key (the "secret key").
-     *
-     * @return string
-     */
-    public function getApiKey(): string
-    {
-        return $this->getParameter('apiKey');
-    }
-
-    /**
-     * Set the gateway API Key.
-     *
-     * @return AbstractRequest provides a fluent interface.
-     */
-    public function setApiKey($value): AbstractRequest
-    {
-        return $this->setParameter('apiKey', $value);
-    }
-
     public function getData()
     {
         // Just validate the parameters.

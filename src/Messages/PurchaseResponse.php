@@ -68,8 +68,17 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         // We explicitly do nothing here.
     }
 
+    /**
+     * The transation ref has to include the session and (later) the actual transaction ref. This is because the session
+     * is the only thing we have that will allow us to retrieve the payment later in the process (and therefore get the
+     * transaction ref.
+     * We encode it as JSON.
+     *
+     * @return string|null
+     */
     public function getTransactionReference()
     {
-        return $this->getSessionID();
+        // @TODO: It would be nice if we could have common code for this: $this->generateRef($this->getSessionID(), $txRef = null)
+        return json_encode(['sessionId' => $this->getSessionID()]);
     }
 }
