@@ -40,6 +40,7 @@ class PurchaseRequest extends AbstractRequest
         // used to identify this transaction.
         \Stripe\Stripe::setApiKey($this->getApiKey());
 
+        // Initiate the session.
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
@@ -60,5 +61,7 @@ class PurchaseRequest extends AbstractRequest
                 'cancel_url' => $this->getCancelUrl(),
             ]
         );
+
+        return $this->response = new PurchaseResponse($this, ['session' => $session]);
     }
 }
