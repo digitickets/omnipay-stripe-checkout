@@ -21,7 +21,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function __construct(RequestInterface $request, $data)
     {
-\DigiTickets\Applications\Commands\Personal\Debug::log('Creating a new purchase response');
         parent::__construct($request, $data);
 
         if (isset($data['session'])) {
@@ -31,19 +30,11 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function setSession(Session $session)
     {
-\DigiTickets\Applications\Commands\Personal\Debug::log('Setting session in response; id is: '.$session->id);
         $this->session = $session;
     }
 
     public function getSessionID()
     {
-\DigiTickets\Applications\Commands\Personal\Debug::log('Being asked for session id...');
-if ($this->session) {
-    \DigiTickets\Applications\Commands\Personal\Debug::log('It has id: '.$this->session->id);
-} else {
-    \DigiTickets\Applications\Commands\Personal\Debug::log('We do not seem to have one');
-}
-
         return $this->session ? $this->session->id : null;
     }
 
@@ -74,7 +65,6 @@ if ($this->session) {
 
     public function redirect()
     {
-\DigiTickets\Applications\Commands\Personal\Debug::log('Purchase response - NOT redirecting');
         // We explicitly do nothing here.
     }
 
