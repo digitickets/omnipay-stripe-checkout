@@ -10,11 +10,6 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
     private $sessionID;
 
     /**
-     * @var string|null
-     */
-    private $transactionReference; // @TODO: Not sure if this is needed now.
-
-    /**
      * @return string|null
      */
     public function getSessionID()
@@ -30,11 +25,9 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
      */
     public function setTransactionReference($value)
     {
-        // @TODO: Again, have common code that will extract the values out.
+        // @TODO: Again, have common code that will extract the value(s) out.
         $refParts = json_decode($value, true);
         $this->sessionID = $refParts['sessionId'] ?? null;
-        // We do this so that we can use the parent's getter (and therefore don't have to write our own).
-        parent::setTransactionReference($refParts['txRef'] ?? null); // @TODO: Check whether we actually need this.
     }
 
     public function getData()
