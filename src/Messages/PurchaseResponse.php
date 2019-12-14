@@ -2,6 +2,7 @@
 
 namespace DigiTickets\Stripe\Messages;
 
+use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
@@ -78,7 +79,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     public function getTransactionReference()
     {
-        // @TODO: It would be nice if we could have common code for this: $this->generateRef($this->getSessionID(), $txRef = null)
-        return json_encode(['sessionId' => $this->getSessionID()]);
+        return (new ComplexTransactionRef($this->getSessionID()))->asJson();
     }
 }

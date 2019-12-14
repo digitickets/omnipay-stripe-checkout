@@ -2,6 +2,7 @@
 
 namespace DigiTickets\Stripe\Messages;
 
+use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use Stripe\PaymentIntent;
@@ -66,8 +67,7 @@ class CompletePurchaseResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
-        // @TODO: Again, common code.
-        return json_encode(['txRef' => $this->internalTransactionRef, 'sessionId' => $this->request->getSessionID()]);
+        return (new ComplexTransactionRef($this->request->getSessionID(), $this->internalTransactionRef))->asJson();
     }
 
     public function getTransactionId()

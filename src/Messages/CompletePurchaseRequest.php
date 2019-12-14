@@ -2,6 +2,8 @@
 
 namespace DigiTickets\Stripe\Messages;
 
+use DigiTickets\Stripe\Lib\ComplexTransactionRef;
+
 class CompletePurchaseRequest extends AbstractCheckoutRequest
 {
     /**
@@ -25,9 +27,7 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
      */
     public function setTransactionReference($value)
     {
-        // @TODO: Again, have common code that will extract the value(s) out.
-        $refParts = json_decode($value, true);
-        $this->sessionID = $refParts['sessionId'] ?? null;
+        $this->sessionID = ComplexTransactionRef::build($value)->getSessionID();
     }
 
     public function getData()
