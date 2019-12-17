@@ -27,7 +27,7 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
      */
     public function setTransactionReference($value)
     {
-        $this->sessionID = ComplexTransactionRef::build($value)->getSessionID();
+        $this->sessionID = ComplexTransactionRef::buildFromJson($value)->getSessionID();
     }
 
     public function getData()

@@ -2,6 +2,14 @@
 
 namespace DigiTickets\Stripe\Lib;
 
+/**
+ * This is a value object that handles the translation between a transaction reference and its components.
+ * Because the transaction reference is comprised of the session and the transaction ref, it's useful to have this class
+ * that can translate both ways between them (separate values and JSON).
+ * The constructor accepts the separate values, and you can call asJson() to get the JSON.
+ * The buildFromJson() method takes a JSON string, extracts the values and instantiates the class.
+ * The class has a getter for each componant.
+ */
 class ComplexTransactionRef
 {
     /**
@@ -20,7 +28,7 @@ class ComplexTransactionRef
         $this->transactionReference = $transactionReference;
     }
 
-    public static function build($value): self
+    public static function buildFromJson($value): self
     {
         $refParts = json_decode($value, true);
 

@@ -10,6 +10,7 @@ use Stripe\PaymentIntent;
 class CompletePurchaseResponse extends AbstractResponse
 {
     const STATUS_SUCCESS = 'succeeded';
+    const STATUS_CANCELED = 'requires_payment_method'; // As far as I can tell this is what we receive when the customer cancels the card form.
 
     /**
      * @var bool
@@ -40,10 +41,25 @@ class CompletePurchaseResponse extends AbstractResponse
             $paymentIntent = $data['paymentIntent'];
 
             $this->internalTransactionRef = $paymentIntent->id;
-            $this->successful = $paymentIntent->status === self::STATUS_SUCCESS;
-            // Amazingly there doesn't seem to be a simple code nor message when the payment succeeds.
+
+            // Amazingly there doesn't seem to be a simple code nor message when the payment succeeds (or fails).
             // For now, just use the status for the message, and leave the code blank.
-            $this->message = $paymentIntent->status;
+            switch ($paymentIntent->status) {
+                case self::STATUS_SUCCESS:
+                    $this->successful = true;
+                    $this->message = $paymentIntent->status;
+                    break;
+                case self::STATUS_CANCELED:
+                    $this->successful = false;
+                    $this->message = 'Canceled by customer';
+                    break;
+                default:
+                    // We don't know what happened, so act accordingly. Would be nice to make this better over time.
+                    $this->successful = false;
+                    $this->message = 'Unknown error';
+                    break;
+
+            }
         } else {
             $this->successful = false; // Just make sure.
             $this->message = 'Could not retrieve payment';
