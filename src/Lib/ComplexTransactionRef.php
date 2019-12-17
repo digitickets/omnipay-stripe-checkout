@@ -32,7 +32,7 @@ class ComplexTransactionRef
     {
         $refParts = json_decode($value, true);
 
-        return new static($refParts['sessionId'] ?? null, $refParts['txRef'] ?? null);
+        return new static($refParts['sessionId'] ?? '', $refParts['txRef'] ?? null);
     }
 
     public function getSessionID(): string

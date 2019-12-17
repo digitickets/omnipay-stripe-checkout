@@ -35,7 +35,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
                     },
                     $this->getItems()->all()
                 ),
-                'success_url' => $this->getReturnUrl().'?session_id={CHECKOUT_SESSION_ID}',
+                'success_url' => $this->getReturnUrl(),
                 'cancel_url' => $this->getCancelUrl(),
             ]
         );
