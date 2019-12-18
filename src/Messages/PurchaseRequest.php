@@ -12,7 +12,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
     public function getData()
     {
         // Just validate the parameters.
-        $this->validate('apiKey', 'transactionId', 'returnUrl', 'cancelUrl'/*, ???*/);
+        $this->validate('apiKey', 'transactionId', 'returnUrl', 'cancelUrl');
 
         return null;
     }

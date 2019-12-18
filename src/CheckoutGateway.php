@@ -4,6 +4,7 @@ namespace DigiTickets\Stripe;
 
 use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseRequest;
+use DigiTickets\Stripe\Messages\RefundRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
@@ -64,5 +65,10 @@ class CheckoutGateway extends AbstractGateway
     public function completePurchase(array $parameters = []): RequestInterface
     {
         return $this->createRequest(CompletePurchaseRequest::class, $parameters);
+    }
+
+    public function refund(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(RefundRequest::class, $parameters);
     }
 }

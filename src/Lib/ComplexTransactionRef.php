@@ -8,7 +8,7 @@ namespace DigiTickets\Stripe\Lib;
  * that can translate both ways between them (separate values and JSON).
  * The constructor accepts the separate values, and you can call asJson() to get the JSON.
  * The buildFromJson() method takes a JSON string, extracts the values and instantiates the class.
- * The class has a getter for each componant.
+ * The class has a getter for each component.
  */
 class ComplexTransactionRef
 {
@@ -22,17 +22,23 @@ class ComplexTransactionRef
      */
     private $transactionReference;
 
-    public function __construct(string $sessionID, string $transactionReference = null)
+    /**
+     * @var string|null
+     */
+    private $refundReference;
+
+    public function __construct(string $sessionID, string $transactionReference = null, string $refundReference = null)
     {
         $this->sessionID = $sessionID;
         $this->transactionReference = $transactionReference;
+        $this->refundReference = $refundReference;
     }
 
     public static function buildFromJson($value): self
     {
         $refParts = json_decode($value, true);
 
-        return new static($refParts['sessionId'] ?? '', $refParts['txRef'] ?? null);
+        return new static($refParts['sessionId'] ?? '', $refParts['txRef'] ?? null, $refParts['refundRef'] ?? null);
     }
 
     public function getSessionID(): string
@@ -48,13 +54,33 @@ class ComplexTransactionRef
         return $this->transactionReference;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getRefundReference()
+    {
+        return $this->refundReference;
+    }
+
+    /**
+     * @return self
+     */
+    public function setRefundReference($value)
+    {
+        $this->refundReference = $value;
+
+        return $this;
+    }
+
     public function asJson()
     {
-        // We want the txRef first.
+        // We want the refund ref first (will rarely be populated, so will usually be removed by the filter), then the
+        // txRef, then the session ref.
         // We don't want any elements (specifically the txRef) that have null values, hence the array_filter.
         return json_encode(
             array_filter(
                 [
+                    'refundRef' => $this->refundReference,
                     'txRef' => $this->transactionReference,
                     'sessionId' => $this->sessionID,
                 ]
