@@ -4,6 +4,11 @@ namespace DigiTickets\Stripe\Messages;
 
 class PurchaseRequest extends AbstractCheckoutRequest
 {
+    private function nullIfEmpty(string $value = null)
+    {
+        return empty($value) ? null : $value;
+    }
+
     public function getData()
     {
         // Just validate the parameters.
@@ -27,7 +32,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
                     function(\Omnipay\Common\Item $item) {
                         return [
                             'name' => $item->getName(),
-                            'description' => $item->getDescription(),
+                            'description' => $this->nullIfEmpty($item->getDescription()),
                             'amount' => 100*$item->getPrice(), // @TODO: The multiplier depends on the currency
                             'currency' => $this->getCurrency(),
                             'quantity' => $item->getQuantity(),
