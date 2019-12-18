@@ -39,7 +39,7 @@ It assumes you will use the [redirect method in the browser page](https://stripe
 
 We have done the minimum necessary to get our system to work. If you need any further functionality, please submit a pull request (or ask us to make the change)
 
-It will support refunds (TBC).
+It support refunds, but currently it only handles refunding the full amount of a transaction.
 
 ## What's Not Included
 
