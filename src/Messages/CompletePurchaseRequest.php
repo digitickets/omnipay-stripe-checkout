@@ -32,6 +32,9 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
 
     public function getData()
     {
+        // Just validate the parameters.
+        $this->validate('apiKey');
+
         return null; // The data we need (the session id) is already in the request object.
     }
 
