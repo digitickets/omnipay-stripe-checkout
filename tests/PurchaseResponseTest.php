@@ -5,7 +5,6 @@ namespace DigiTickets\StripeTests;
 use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseResponse;
 use DigiTickets\StripeTests\Fixtures\Request;
-use DigiTickets\StripeTests\Fixtures\StripeSession;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
 use Stripe\Checkout\Session;
@@ -24,7 +23,7 @@ class PurchaseResponseTest extends TestCase
             'with session' => [
                 $request,
                 ['session' => $session],
-                StripeSession::SESSION_ID_1
+                self::SESSION_ID_1
             ],
         ];
     }
