@@ -25,7 +25,8 @@
       "scpService": "lib"
     },
     "psr-4": {
-      "DigiTickets\\Stripe\\": "src"
+      "DigiTickets\\Stripe\\": "src",
+      "DigiTickets\\Stripe\\Tests": "tests"
     }
   },
   "require": {
