@@ -13,10 +13,6 @@ matrix:
   - php: 7.2
     env: PHPSTAN=true
   - php: nightly
-  - php: hhvm
-    sudo: required
-    dist: trusty
-    group: edge
   allow_failures:
   - php: nightly
   - php: 7.2
