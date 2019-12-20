@@ -27,6 +27,7 @@ class PurchaseResponseTest extends TestCase
             ],
         ];
     }
+
     /**
      * @param RequestInterface $request
      * @param $data

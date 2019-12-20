@@ -62,6 +62,9 @@ class RefundResponseTest extends TestCase
     /**
      * @param RefundRequest $request
      * @param $data
+     * @param bool $expectedSuccess
+     * @param string $expectedMessage
+     * @param string|null $expectedReference
      *
      * @dataProvider creationProvider
      */
@@ -70,7 +73,7 @@ class RefundResponseTest extends TestCase
         $data,
         bool $expectedSuccess,
         string $expectedMessage,
-        string $expectedReference
+        string $expectedReference = null
     ) {
         $refundResponse = new RefundResponse($request, $data);
 

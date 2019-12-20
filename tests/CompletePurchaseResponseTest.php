@@ -57,6 +57,7 @@ class CompletePurchaseResponseTest extends TestCase
      * @param $data
      * @param bool $expectSuccess
      * @param string $expectMessage
+     * @param string $expectedTransactionReference
      *
      * @dataProvider creationProvider
      */
