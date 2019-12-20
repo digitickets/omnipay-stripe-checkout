@@ -18,6 +18,10 @@ class RefundResponseTest extends TestCase
     public function creationProvider()
     {
         $request = Mockery::mock(RefundRequest::class);
+        $successfulRefund = new Refund(self::REFUND_ID_SUCCESS);
+        $successfulRefund->status = Refund::STATUS_SUCCEEDED;
+        $failedRefund = new Refund(self::REFUND_ID_SUCCESS);
+        $failedRefund->status = self::STATUS_FAILED;
 
         return [
             'nothing' => [
@@ -36,14 +40,14 @@ class RefundResponseTest extends TestCase
             ],
             'successful refund' => [
                 $request,
-                ['refund' => new Refund(self::REFUND_ID_SUCCESS, ['status' => RefundResponse::STATUS_SUCCEEDED])],
+                ['refund' => $successfulRefund],
                 true,
-                RefundResponse::STATUS_SUCCEEDED,
+                Refund::STATUS_SUCCEEDED,
                 'What should this be?'
             ],
             'failed refund' => [
                 $request,
-                ['refund' => new Refund(self::REFUND_ID_FAILURE, ['status' => self::STATUS_FAILED])],
+                ['refund' => $failedRefund],
                 false,
                 self::STATUS_FAILED,
                 null
