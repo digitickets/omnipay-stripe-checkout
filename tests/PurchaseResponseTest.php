@@ -2,8 +2,8 @@
 
 use DigiTickets\Stripe\Messages\PurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseResponse;
-use DigiTickets\Stripe\Tests\Fixtures\Request;
-use DigiTickets\Stripe\Tests\Fixtures\StripeSession;
+use DigiTickets\StripeTests\Fixtures\Request;
+use DigiTickets\StripeTests\Fixtures\StripeSession;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
 

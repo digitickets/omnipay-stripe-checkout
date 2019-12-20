@@ -26,7 +26,7 @@
     },
     "psr-4": {
       "DigiTickets\\Stripe\\": "src",
-      "DigiTickets\\Stripe\\Tests": "tests"
+      "DigiTickets\\StripeTests\\": "tests"
     }
   },
   "require": {

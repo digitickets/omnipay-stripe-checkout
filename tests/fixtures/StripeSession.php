@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\Stripe\Tests\Fixtures;
+namespace DigiTickets\StripeTests\Fixtures;
 
 /**
  * This emulates a Stripe Session (which has about a million elements). We only need a public property called "id"
