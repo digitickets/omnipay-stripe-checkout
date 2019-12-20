@@ -7,6 +7,25 @@ use Omnipay\Tests\TestCase;
 
 class ComplexTransactionRefTest extends TestCase
 {
+    private function checkTransactionReferenceObject(
+        ComplexTransactionRef $complexTransactionRef,
+        string $expectedSessionID,
+        string $expectedTxRef = null,
+        string $expectedRefRef = null
+    ) {
+        $this->assertEquals($expectedSessionID, $transactionReference->getSessionID());
+        if (is_null($expectedTxRef)) {
+            $this->assertNull($transactionReference->getTransactionReference());
+        } else {
+            $this->assertEquals($expectedTxRef, $transactionReference->getTransactionReference());
+        }
+        if (is_null($expectedRefRef)) {
+            $this->assertNull($transactionReference->getRefundReference());
+        } else {
+            $this->assertEquals($expectedRefRef, $transactionReference->getRefundReference());
+        }
+    }
+
     public function creationProvider()
     {
         $sessionID = 'S100';
@@ -31,17 +50,13 @@ class ComplexTransactionRefTest extends TestCase
     {
         $transactionReference = new ComplexTransactionRef($sessionID, $txRef, $refundReference);
 
-        $this->assertEquals($sessionID, $transactionReference->getSessionID());
-        if (is_null($txRef)) {
-            $this->assertNull($transactionReference->getTransactionReference());
-        } else {
-            $this->assertEquals($txRef, $transactionReference->getTransactionReference());
-        }
-        if (is_null($refundReference)) {
-            $this->assertNull($transactionReference->getRefundReference());
-        } else {
-            $this->assertEquals($refundReference, $transactionReference->getRefundReference());
-        }
+        // The checking of the complex tx ref is the same as in the other test, so there's a method that will do it.
+        $this->checkTransactionReferenceObject(
+            $transactionReference,
+            $sessionID,
+            $txRef,
+            $refundReference
+        );
     }
 
     public function buildFromJsonProvider()
@@ -93,17 +108,12 @@ class ComplexTransactionRefTest extends TestCase
     ) {
         $transactionReference = ComplexTransactionRef::buildFromJson($jsonString);
 
-        // @TODO: I should be able to combine these assertions with the ones in the other test. Ie have a separate method that does the tests.
-        $this->assertEquals($expectedSessionID, $transactionReference->getSessionID());
-        if (is_null($expectedTxRef)) {
-            $this->assertNull($transactionReference->getTransactionReference());
-        } else {
-            $this->assertEquals($expectedTxRef, $transactionReference->getTransactionReference());
-        }
-        if (is_null($expectedRefRef)) {
-            $this->assertNull($transactionReference->getRefundReference());
-        } else {
-            $this->assertEquals($expectedRefRef, $transactionReference->getRefundReference());
-        }
+        // The checking of the complex tx ref is the same as in the other test, so there's a method that will do it.
+        $this->checkTransactionReferenceObject(
+            $transactionReference,
+            $expectedSessionID,
+            $expectedTxRef,
+            $expectedRefRef
+        );
     }
 }
