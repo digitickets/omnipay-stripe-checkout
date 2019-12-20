@@ -31,10 +31,14 @@ class PurchaseResponseTest extends TestCase
      */
     public function testCreation(RequestInterface $request, $data, string $expectedSessionID = null)
     {
-        if (is_null($expectedSessionID)) {
-            $this->expectException(\InvalidArgumentException::class);
+        // I can't seem to get $this->expectException() to work, so I'm having to do it manually.
+        try {
+            $purchaseResponse = new PurchaseResponse($request, $data);
+            $this->assertNotNull($expectedSessionID); // If it gets here, we expect the session to be present.
+        } catch (\InvalidArgumentException $e) {
+            // It will throw this exception if the session is not present.
+            $this->assertNull($expectedSessionID);
         }
-        $purchaseResponse = new PurchaseResponse($request, $data);
 
         // Check the session id.
         if (is_null($expectedSessionID)) {
