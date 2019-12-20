@@ -24,8 +24,10 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
         parent::__construct($request, $data);
 
-        if (isset($data['session'])) {
+        if (isset($data['session']) && $data['session'] instanceof Session) {
             $this->setSession($data['session']);
+        } else {
+            throw new \InvalidArgumentException('A valid Session must be supplied');
         }
     }
 

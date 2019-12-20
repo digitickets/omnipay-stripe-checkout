@@ -31,6 +31,9 @@ class PurchaseResponseTest extends TestCase
      */
     public function testCreation(RequestInterface $request, $data, string $expectedSessionID = null)
     {
+        if (is_null($expectedSessionID)) {
+            $this->expectException(\InvalidArgumentException::class);
+        }
         $purchaseResponse = new PurchaseResponse($request, $data);
 
         // Check the session id.
@@ -48,10 +51,6 @@ class PurchaseResponseTest extends TestCase
         $this->assertEquals([], $purchaseResponse->getRedirectData());
 
         // Check the transaction reference.
-        // @TODO: I think that if the $expectedSessionID is null, we'll get an exception. Check which exception is it.
-        if (is_null($expectedSessionID)) {
-//            $this->expectException(???);
-        }
         $txRef = $purchaseResponse->getTransactionReference();
         $this->assertEquals(sprintf('{"sessionId":"%s"}', $expectedSessionID), $txRef);
     }

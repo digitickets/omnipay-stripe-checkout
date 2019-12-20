@@ -32,13 +32,13 @@ class CompletePurchaseResponseTest extends TestCase
             'canceled' => [
                 $request,
                 ['paymentIntent' => new PaymentIntent(PaymentIntent::PI_ID, CompletePurchaseResponse::STATUS_CANCELED)],
-                true,
+                false,
                 CompletePurchaseResponse::STATUS_CANCELED
             ],
             'unknown' => [
                 $request,
                 ['paymentIntent' => new PaymentIntent(PaymentIntent::PI_ID, $statusOther)],
-                true,
+                false,
                 $statusOther
             ],
         ];
