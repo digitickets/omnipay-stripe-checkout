@@ -24,4 +24,7 @@ class Request implements RequestInterface
 
     public function sendData($data) {
     }
+
+    public function getData() {
+    }
 }

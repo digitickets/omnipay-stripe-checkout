@@ -15,7 +15,11 @@ class PurchaseResponseTest extends TestCase
         $request = new Request();
         return [
             'no session' => [$request, [], null],
-            'with session' => [$request, new StripeSession(StripeSession::SESSION_ID_1), StripeSession::SESSION_ID_1],
+            'with session' => [
+                $request,
+                ['session' => new StripeSession(StripeSession::SESSION_ID_1)],
+                StripeSession::SESSION_ID_1
+            ],
         ];
     }
     /**
