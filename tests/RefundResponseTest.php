@@ -61,13 +61,13 @@ class RefundResponseTest extends TestCase
         RefundRequest $request,
         $data,
         bool $expectedSuccess,
-        string $expectedMessage,
-        string $expectedReference
+        string $expectedMessage/*,
+        string $expectedReference*/
     ) {
         $refundResponse = new RefundResponse($request, $data);
 
         $this->assertEquals($expectedSuccess, $refundResponse->isSuccessful());
         $this->assertEquals($expectedMessage, $refundResponse->getMessage());
-        $this->assertEquals($expectedReference, $refundResponse->getTransactionReference());
+        $this->assertEquals('What is $expectedReference?', $refundResponse->getTransactionReference());
     }
 }
