@@ -1,6 +1,7 @@
 <?php
 
-use DigiTickets\Stripe\Messages\PurchaseRequest;
+namespace DigiTickets\StripeTests;
+
 use DigiTickets\Stripe\Messages\PurchaseResponse;
 use DigiTickets\StripeTests\Fixtures\Request;
 use DigiTickets\StripeTests\Fixtures\StripeSession;

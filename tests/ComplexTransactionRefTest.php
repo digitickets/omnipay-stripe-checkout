@@ -1,5 +1,7 @@
 <?php
 
+namespace DigiTickets\StripeTests;
+
 use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Tests\TestCase;
 
