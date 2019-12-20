@@ -10,6 +10,7 @@ use Stripe\Refund;
 
 class RefundResponseTest extends TestCase
 {
+    const REQUEST_REF = 'refund-request-reference';
     const EXCEPTION_MESSAGE = 'Emulating an exception';
     const REFUND_ID_SUCCESS = 'RefSuccess';
     const REFUND_ID_FAILURE = 'RefFail';
@@ -18,6 +19,8 @@ class RefundResponseTest extends TestCase
     public function creationProvider()
     {
         $request = Mockery::mock(RefundRequest::class);
+        $request->shouldReceive('getTransactionReference')->andReturn(self::REQUEST_REF);
+
         $successfulRefund = new Refund(self::REFUND_ID_SUCCESS);
         $successfulRefund->status = Refund::STATUS_SUCCEEDED;
         $failedRefund = new Refund(self::REFUND_ID_SUCCESS);

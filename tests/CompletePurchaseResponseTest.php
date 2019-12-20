@@ -10,7 +10,7 @@ use Omnipay\Tests\TestCase;
 
 class CompletePurchaseResponseTest extends TestCase
 {
-    const SESSION_ID = 'complete-purchase-request-id';
+    const SESSION_ID = 'complete-purchase-request-session-id';
     const TX_ID = 'complete-purchase-request-id';
 
     public function creationProvider()

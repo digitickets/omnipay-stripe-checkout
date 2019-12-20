@@ -8,8 +8,6 @@ use Omnipay\Common\Message\RequestInterface;
 
 class RefundResponse extends AbstractResponse
 {
-    const STATUS_SUCCEEDED = 'succeeded';
-
     /**
      * @var RefundRequest
      */
@@ -44,7 +42,7 @@ class RefundResponse extends AbstractResponse
             $this->success = false;
             $this->message = $refund->getMessage();
         } elseif ($refund instanceof \Stripe\Refund) {
-            if ($refund->status === self::STATUS_SUCCEEDED) {
+            if ($refund->status === \Stripe\Refund::STATUS_SUCCEEDED) {
                 // Looks like it was okay.
                 $this->success = true;
                 $this->message = $refund->status;
