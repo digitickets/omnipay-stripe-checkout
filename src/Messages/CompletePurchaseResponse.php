@@ -15,7 +15,7 @@ class CompletePurchaseResponse extends AbstractResponse
     /**
      * @var CompletePurchaseRequest
      */
-    private $request;
+    protected $request;
 
     /**
      * @var bool

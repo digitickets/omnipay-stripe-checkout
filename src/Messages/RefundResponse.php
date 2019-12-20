@@ -13,7 +13,7 @@ class RefundResponse extends AbstractResponse
     /**
      * @var RefundRequest
      */
-    private $request;
+    protected $request;
 
     /**
      * @var bool

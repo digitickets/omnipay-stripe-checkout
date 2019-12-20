@@ -1,9 +1,9 @@
 <?php
 
 use DigiTickets\Stripe\Lib\ComplexTransactionRef;
-use Omnipay\Tests\GatewayTestCase;
+use Omnipay\Tests\TestCase;
 
-class ComplexTransactionRefTest extends GatewayTestCase
+class ComplexTransactionRefTest extends TestCase
 {
     public function creationProvider()
     {
