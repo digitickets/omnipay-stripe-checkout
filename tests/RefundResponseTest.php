@@ -29,7 +29,7 @@ class RefundResponseTest extends TestCase
             ],
             'exception' => [
                 $request,
-                ['refund' => new Exception(self::EXCEPTION_MESSAGE)],
+                ['refund' => new \Exception(self::EXCEPTION_MESSAGE)],
                 false,
                 self::EXCEPTION_MESSAGE,
                 null
