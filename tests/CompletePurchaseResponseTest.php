@@ -15,7 +15,6 @@ class CompletePurchaseResponseTest extends TestCase
         $request = Mockery::mock(CompletePurchaseRequest::class);
 //        $request->shouldReceive('getReturnUrl')->once()->andReturn('http://store.example.com/');
 
-        $statusOther = 'Other';
         return [
             'no payment intent' => [
                 $request,
@@ -33,13 +32,13 @@ class CompletePurchaseResponseTest extends TestCase
                 $request,
                 ['paymentIntent' => new PaymentIntent(PaymentIntent::PI_ID, CompletePurchaseResponse::STATUS_CANCELED)],
                 false,
-                CompletePurchaseResponse::STATUS_CANCELED
+                'Canceled by customer'
             ],
             'unknown' => [
                 $request,
-                ['paymentIntent' => new PaymentIntent(PaymentIntent::PI_ID, $statusOther)],
+                ['paymentIntent' => new PaymentIntent(PaymentIntent::PI_ID, 'Other')],
                 false,
-                $statusOther
+                'Unknown error'
             ],
         ];
     }

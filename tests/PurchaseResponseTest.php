@@ -2,22 +2,28 @@
 
 namespace DigiTickets\StripeTests;
 
+use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseResponse;
 use DigiTickets\StripeTests\Fixtures\Request;
 use DigiTickets\StripeTests\Fixtures\StripeSession;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
+use Stripe\Checkout\Session;
 
 class PurchaseResponseTest extends TestCase
 {
+    const SESSION_ID_1 = 'S101';
+
     public function creationProvider()
     {
         $request = new Request();
+        $session = new Session(self::SESSION_ID_1);
+
         return [
             'no session' => [$request, [], null],
             'with session' => [
                 $request,
-                ['session' => new StripeSession(StripeSession::SESSION_ID_1)],
+                ['session' => $session],
                 StripeSession::SESSION_ID_1
             ],
         ];
