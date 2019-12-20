@@ -13,16 +13,16 @@ class ComplexTransactionRefTest extends TestCase
         string $expectedTxRef = null,
         string $expectedRefRef = null
     ) {
-        $this->assertEquals($expectedSessionID, $transactionReference->getSessionID());
+        $this->assertEquals($expectedSessionID, $complexTransactionRef->getSessionID());
         if (is_null($expectedTxRef)) {
-            $this->assertNull($transactionReference->getTransactionReference());
+            $this->assertNull($complexTransactionRef->getTransactionReference());
         } else {
-            $this->assertEquals($expectedTxRef, $transactionReference->getTransactionReference());
+            $this->assertEquals($expectedTxRef, $complexTransactionRef->getTransactionReference());
         }
         if (is_null($expectedRefRef)) {
-            $this->assertNull($transactionReference->getRefundReference());
+            $this->assertNull($complexTransactionRef->getRefundReference());
         } else {
-            $this->assertEquals($expectedRefRef, $transactionReference->getRefundReference());
+            $this->assertEquals($expectedRefRef, $complexTransactionRef->getRefundReference());
         }
     }
 
