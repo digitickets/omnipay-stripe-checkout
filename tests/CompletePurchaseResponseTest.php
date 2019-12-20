@@ -13,7 +13,6 @@ class CompletePurchaseResponseTest extends TestCase
     public function creationProvider()
     {
         $request = Mockery::mock(CompletePurchaseRequest::class);
-//        $request->shouldReceive('getReturnUrl')->once()->andReturn('http://store.example.com/');
 
         return [
             'no payment intent' => [
@@ -59,6 +58,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertEquals($expectMessage, $completePurchaseResponse->getMessage());
         $this->assertNull($completePurchaseResponse->getCode());
 
-        // @TODO: Check getTransactionReference() and ?getTransactionId()
+        $this->assertEquals('What is the correct value 1?', $completePurchaseResponse->getTransactionReference());
+        $this->assertEquals('What is the correct value 2?', $completePurchaseResponse->getTransactionId());
     }
 }
