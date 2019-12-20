@@ -25,6 +25,7 @@ class RefundResponseTest extends TestCase
         $successfulRefund->status = Refund::STATUS_SUCCEEDED;
         $failedRefund = new Refund(self::REFUND_ID_SUCCESS);
         $failedRefund->status = self::STATUS_FAILED;
+        $refundJsonRef = sprintf('{"refundRef":"%s"}', self::REFUND_ID_SUCCESS);
 
         return [
             'nothing' => [
@@ -46,14 +47,14 @@ class RefundResponseTest extends TestCase
                 ['refund' => $successfulRefund],
                 true,
                 Refund::STATUS_SUCCEEDED,
-                'What should this be?'
+                $refundJsonRef,
             ],
             'failed refund' => [
                 $request,
                 ['refund' => $failedRefund],
                 false,
                 self::STATUS_FAILED,
-                null
+                $refundJsonRef
             ],
         ];
     }
@@ -68,13 +69,13 @@ class RefundResponseTest extends TestCase
         RefundRequest $request,
         $data,
         bool $expectedSuccess,
-        string $expectedMessage/*,
-        string $expectedReference*/
+        string $expectedMessage,
+        string $expectedReference
     ) {
         $refundResponse = new RefundResponse($request, $data);
 
         $this->assertEquals($expectedSuccess, $refundResponse->isSuccessful());
         $this->assertEquals($expectedMessage, $refundResponse->getMessage());
-        $this->assertEquals('What is $expectedReference?', $refundResponse->getTransactionReference());
+        $this->assertEquals($expectedReference, $refundResponse->getTransactionReference());
     }
 }

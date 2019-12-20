@@ -74,6 +74,6 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertNull($completePurchaseResponse->getCode());
 
         $this->assertEquals($expectedTransactionReference, $completePurchaseResponse->getTransactionReference());
-        $this->assertEquals('What is the correct value 2?', $completePurchaseResponse->getTransactionId());
+        $this->assertEquals(self::TX_ID, $completePurchaseResponse->getTransactionId());
     }
 }
