@@ -10,9 +10,12 @@ use Omnipay\Tests\TestCase;
 
 class CompletePurchaseResponseTest extends TestCase
 {
+    const SESSION_ID = 'complete-purchase-request-id';
+
     public function creationProvider()
     {
         $request = Mockery::mock(CompletePurchaseRequest::class);
+        $request->shouldReceive('getSessionID')->andReturn(self::SESSION_ID);
 
         return [
             'no payment intent' => [
