@@ -11,6 +11,11 @@ class RefundResponse extends AbstractResponse
     const STATUS_SUCCEEDED = 'succeeded';
 
     /**
+     * @var RefundRequest
+     */
+    private $request;
+
+    /**
      * @var bool
      */
     private $success = false;
@@ -25,7 +30,7 @@ class RefundResponse extends AbstractResponse
      */
     private $transactionReference = null;
 
-    public function __construct(RequestInterface $request, $data)
+    public function __construct(RefundRequest $request, $data)
     {
         parent::__construct($request, $data);
 
@@ -50,9 +55,6 @@ class RefundResponse extends AbstractResponse
             }
             // For the reference, take the original payment reference (which consists of the session- and payment
             // intent ids), and inject the refund id.
-            /**
-             * @var \DigiTickets\Stripe\Messages\RefundRequest $request
-             */
             $this->transactionReference = ComplexTransactionRef::buildFromJson($request->getTransactionReference())->setRefundReference($refund->id)->asJson();
         }
     }

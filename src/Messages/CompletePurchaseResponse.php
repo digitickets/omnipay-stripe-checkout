@@ -13,6 +13,11 @@ class CompletePurchaseResponse extends AbstractResponse
     const STATUS_CANCELED = 'requires_payment_method'; // As far as I can tell this is what we receive when the customer cancels the card form.
 
     /**
+     * @var CompletePurchaseRequest
+     */
+    private $request;
+
+    /**
      * @var bool
      */
     private $successful = false;
@@ -32,7 +37,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     private $internalTransactionRef;
 
-    public function __construct(RequestInterface $request, $data)
+    public function __construct(CompletePurchaseRequest $request, $data)
     {
         parent::__construct($request, $data);
 

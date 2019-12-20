@@ -5,7 +5,27 @@ use Omnipay\Tests\GatewayTestCase;
 
 class ComplexTransactionRefTest extends GatewayTestCase
 {
-    public function testCreate(string $sessionID, string $txRef = null, string $refundReference = null)
+    public function creationProvider()
+    {
+        $sessionID = 'S100';
+        $txRef = 'T200';
+        $refRef = 'R300';
+        return [
+            'just session' => [$sessionID, null, null],
+            'session and txref' => [$sessionID, $txRef, null],
+            'session and refref' => [$sessionID, null, $refRef],
+            'all three' => [$sessionID, $txRef, $refRef],
+        ];
+    }
+
+    /**
+     * @param string $sessionID
+     * @param string|null $txRef
+     * @param string|null $refundReference
+     *
+     * @dataProvider creationProvider
+     */
+    public function testCreation(string $sessionID, string $txRef = null, string $refundReference = null)
     {
         $transactionReference = new ComplexTransactionRef($sessionID, $txRef, $refundReference);
 
