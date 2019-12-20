@@ -56,6 +56,10 @@ class RefundResponse extends AbstractResponse
             // For the reference, take the original payment reference (which consists of the session- and payment
             // intent ids), and inject the refund id.
             $this->transactionReference = ComplexTransactionRef::buildFromJson($request->getTransactionReference())->setRefundReference($refund->id)->asJson();
+        } else {
+            // Something unexpected happened
+            $this->success = false;
+            $this->message = 'Unexpected refund data received';
         }
     }
 
