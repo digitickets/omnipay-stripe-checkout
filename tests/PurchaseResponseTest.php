@@ -38,14 +38,12 @@ class PurchaseResponseTest extends TestCase
         } catch (\InvalidArgumentException $e) {
             // It will throw this exception if the session is not present.
             $this->assertNull($expectedSessionID);
+
+            return; // Stop the test now.
         }
 
         // Check the session id.
-        if (is_null($expectedSessionID)) {
-            $this->assertNull($purchaseResponse->getSessionID());
-        } else {
-            $this->assertEquals($expectedSessionID, $purchaseResponse->getSessionID());
-        }
+        $this->assertEquals($expectedSessionID, $purchaseResponse->getSessionID());
 
         // Check the responses to various other methods, that are all return hard-coded values.
         $this->assertFalse($purchaseResponse->isSuccessful());
