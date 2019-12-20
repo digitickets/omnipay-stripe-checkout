@@ -11,11 +11,13 @@ use Omnipay\Tests\TestCase;
 class CompletePurchaseResponseTest extends TestCase
 {
     const SESSION_ID = 'complete-purchase-request-id';
+    const TX_ID = 'complete-purchase-request-id';
 
     public function creationProvider()
     {
         $request = Mockery::mock(CompletePurchaseRequest::class);
         $request->shouldReceive('getSessionID')->andReturn(self::SESSION_ID);
+        $request->shouldReceive('getTransactionId')->andReturn(self::TX_ID);
         $successfulTxRef = sprintf('{"txRef":"%s","sessionId":"%s"}', PaymentIntent::PI_ID, self::SESSION_ID);
 
         return [
