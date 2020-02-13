@@ -24,21 +24,32 @@ class PurchaseRequest extends AbstractCheckoutRequest
         \Stripe\Stripe::setApiKey($this->getApiKey());
 
         // Initiate the session.
+        // Unfortunately (and very, very annoyingly), the API does not allow negative- or zero value items in the
+        // cart, so we have to filter them out (and re-index them) before we build the line items array.
+        // Beware because the amount the customer pays is the sum of the values of the remaining items, so if you
+        // supply negative-valued items, they will NOT be deducted from the payment amount.
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
                 'payment_method_types' => ['card'],
                 'line_items' => array_map(
-                    function(\Omnipay\Common\Item $item) {
+                    function (\Omnipay\Common\Item $item) {
                         return [
                             'name' => $item->getName(),
                             'description' => $this->nullIfEmpty($item->getDescription()),
-                            'amount' => 100*$item->getPrice(), // @TODO: The multiplier depends on the currency
+                            'amount' => (int)(100 * $item->getPrice()), // @TODO: The multiplier depends on the currency
                             'currency' => $this->getCurrency(),
                             'quantity' => $item->getQuantity(),
                         ];
                     },
-                    $this->getItems()->all()
+                    array_values(
+                        array_filter(
+                            $this->getItems()->all(),
+                            function (\Omnipay\Common\Item $item) {
+                                return $item->getPrice() > 0;
+                            }
+                        )
+                    )
                 ),
                 'success_url' => $this->getReturnUrl(),
                 'cancel_url' => $this->getCancelUrl(),
