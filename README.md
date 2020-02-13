@@ -39,7 +39,11 @@ It assumes you will use the [redirect method in the browser page](https://stripe
 
 We have done the minimum necessary to get our system to work. If you need any further functionality, please submit a pull request (or ask us to make the change)
 
-It support refunds, but currently it only handles refunding the full amount of a transaction.
+It supports refunds, but currently it only handles refunding the full amount of a transaction.
+
+**Note:** the Stripe API does _not_ support negative- or zero-value items, so this driver filters them out. **Be aware** that the amount the customer pays
+is only calculated from that filtered set of items, so if there are deductions, etc in your cart, they will _not_ be taken off the payment amount.
+And of course zero-value items will not be shown on the card form.
 
 ## What's Not Included
 
