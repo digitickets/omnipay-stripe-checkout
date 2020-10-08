@@ -32,6 +32,9 @@ class PurchaseRequest extends AbstractCheckoutRequest
             [
                 'client_reference_id' => $this->getTransactionId(),
                 'payment_method_types' => ['card'],
+                'payment_intent_data' => [
+                    'description' => $this->getDescription(),
+                ],
                 'line_items' => array_map(
                     function (\Omnipay\Common\Item $item) {
                         return [
