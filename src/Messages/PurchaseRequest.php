@@ -37,10 +37,13 @@ class PurchaseRequest extends AbstractCheckoutRequest
                 ],
                 'line_items' => array_map(
                     function (\Omnipay\Common\Item $item) {
+                        // Sometimes PHP can't hold the item price accurately, which is why we have to use round()
+                        // after multiplying by 100. Eg, 9.95 is stored as 9.9499999999999993 and without round() it
+                        // ends up as 994 when it should be 995.
                         return [
                             'name' => $item->getName(),
                             'description' => $this->nullIfEmpty($item->getDescription()),
-                            'amount' => (int)(100 * $item->getPrice()), // @TODO: The multiplier depends on the currency
+                            'amount' => (int)round((100 * $item->getPrice())), // @TODO: The multiplier depends on the currency
                             'currency' => $this->getCurrency(),
                             'quantity' => $item->getQuantity(),
                         ];
