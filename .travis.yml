@@ -11,11 +11,13 @@ matrix:
     env: PHPSTAN=true COVERAGE=true
   - php: 7.1
   - php: 7.2
+  - php: 7.3
+  - php: 7.4
     env: PHPSTAN=true
   - php: nightly
   allow_failures:
   - php: nightly
-  - php: 7.2
+  - php: 7.4
 
 cache:
   directories:
