@@ -6,9 +6,7 @@ use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseRequest;
 use DigiTickets\Stripe\Messages\RefundRequest;
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
-use Stripe\Checkout\Session;
 
 class CheckoutGateway extends AbstractGateway
 {
