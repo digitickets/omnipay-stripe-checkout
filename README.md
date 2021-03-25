@@ -9,12 +9,40 @@ Omnipay implementation of the Stripe payment gateway using their "Checkout" proc
 [![Latest Stable Version](https://poser.pugx.org/digitickets/omnipay-stripe-checkout/version.png)](https://packagist.org/packages/digitickets/omnipay-stripe-checkout)
 [![Total Downloads](https://poser.pugx.org/digitickets/omnipay-stripe-checkout/d/total.png)](https://packagist.org/packages/digitickets/omnipay-stripe-checkout)
 
+## Compatibility
+
+There are two versions of this driver; one is compatible with Omnipay v3, the other with Omnipay v2.
+
+If any changes are made to one, please make sure those changes are ported to the other, where appropriate.
+
+### Omnipay v3
+
+This is the master branch, and is released as v3.\*.*
+
+Please note, the maintainers of this package have no (easy) way of testing this version and rely on any contributors testing their changes.
+
+### Omnipay v2
+
+This is the omnipay-v2 branch, and (for historical reasons) is released as v1.\*.*
+
 ## Installation
 
 **Important: Driver requires [PHP's Intl extension](http://php.net/manual/en/book.intl.php) and [PHP's SOAP extension](http://php.net/manual/en/book.soap.php) to be installed.**
 
 The Stripe (Checkout) Omnipay driver is installed via [Composer](http://getcomposer.org/). To install, simply add it
 to your `composer.json` file:
+
+### Omnipay v3
+
+```json
+{
+    "require": {
+        "digitickets/omnipay-stripe-checkout": "~3.0"
+    }
+}
+```
+
+### Omnipay v2
 
 ```json
 {
