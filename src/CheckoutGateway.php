@@ -5,6 +5,7 @@ namespace DigiTickets\Stripe;
 use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseRequest;
 use DigiTickets\Stripe\Messages\RefundRequest;
+use DigiTickets\Stripe\Messages\RegisterWebhookRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
@@ -59,6 +60,8 @@ class CheckoutGateway extends AbstractGateway
 
     public function purchase(array $parameters = []): RequestInterface
     {
+        $request = $this->createRequest(RegisterWebhookRequest::class, $parameters);
+        $request->send();
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
