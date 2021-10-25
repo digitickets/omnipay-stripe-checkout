@@ -6,6 +6,7 @@ use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
 use DigiTickets\Stripe\Messages\PurchaseRequest;
 use DigiTickets\Stripe\Messages\RefundRequest;
 use DigiTickets\Stripe\Messages\RegisterWebhookRequest;
+use Exception;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
@@ -61,7 +62,11 @@ class CheckoutGateway extends AbstractGateway
     public function purchase(array $parameters = []): RequestInterface
     {
         $request = $this->createRequest(RegisterWebhookRequest::class, $parameters);
-        $request->send();
+        $response = $request->send();
+        // If the driver is configured to register a web hook and the response was unsuccessful
+        if(!empty($request->getNotifyUrl()) && !$response->isSuccessful()) {
+            throw new Exception("stripe webhook was not registered");
+        }
         return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
