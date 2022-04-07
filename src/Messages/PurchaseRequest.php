@@ -31,6 +31,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
+                'customer_email' => $this->getCustomerEmail(),
                 'payment_method_types' => ['card'],
                 'payment_intent_data' => [
                     'description' => $this->getDescription(),
