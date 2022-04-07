@@ -31,9 +31,9 @@ abstract class AbstractCheckoutRequest extends AbstractRequest
      *
      * @return string
      */
-    public function getCustomerEmail(): string
+    public function getCustomerEmail()
     {
-        return $this->getParameter('customerEmail') ?? '';
+        return $this->getParameter('customerEmail');
     }
 
     /**
