@@ -25,4 +25,24 @@ abstract class AbstractCheckoutRequest extends AbstractRequest
     {
         return $this->setParameter('apiKey', $value);
     }
+
+    /**
+     * Get the customer email.
+     *
+     * @return string|null
+     */
+    public function getCustomerEmail()
+    {
+        return $this->getParameter('customerEmail');
+    }
+
+    /**
+     * Set the customer email.
+     *
+     * @return AbstractRequest provides a fluent interface.
+     */
+    public function setCustomerEmail($value): AbstractRequest
+    {
+        return $this->setParameter('customerEmail', $value);
+    }
 }
