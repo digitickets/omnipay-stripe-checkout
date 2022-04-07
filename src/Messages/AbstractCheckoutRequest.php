@@ -29,7 +29,7 @@ abstract class AbstractCheckoutRequest extends AbstractRequest
     /**
      * Get the customer email.
      *
-     * @return string
+     * @return string|null
      */
     public function getCustomerEmail()
     {
