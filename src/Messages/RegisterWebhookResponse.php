@@ -13,7 +13,7 @@ class RegisterWebhookResponse extends AbstractResponse
     {
         $webhook = $this->getData();
 
-        return $webhook["url"];
+        return $webhook["url"] ?? null;
     }
 
     /**
