@@ -23,6 +23,8 @@ class PurchaseRequest extends AbstractCheckoutRequest
         // used to identify this transaction.
         \Stripe\Stripe::setApiKey($this->getApiKey());
 
+        $card = $this->getCard();
+
         // Initiate the session.
         // Unfortunately (and very, very annoyingly), the API does not allow negative- or zero value items in the
         // cart, so we have to filter them out (and re-index them) before we build the line items array.
@@ -31,6 +33,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
+                'customer_email' => $card->getEmail(),
                 'payment_method_types' => ['card'],
                 'payment_intent_data' => [
                     'description' => $this->getDescription(),
