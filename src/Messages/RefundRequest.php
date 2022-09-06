@@ -23,6 +23,7 @@ class RefundRequest extends AbstractCheckoutRequest
     {
         // We use Stripe's SDK to initialise a (Stripe) session.
         \Stripe\Stripe::setApiKey($this->getApiKey());
+        \Stripe\Stripe::setApiVersion(self::SUPPORTED_API_VERSION);
 
         // Initiate the refund. The payment intent id is the transaction reference from the original payment.
         // Now, the transaction reference is assumed to be a JSON string containing the session and actual transaction

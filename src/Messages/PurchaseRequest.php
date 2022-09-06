@@ -22,6 +22,8 @@ class PurchaseRequest extends AbstractCheckoutRequest
         // We use Stripe's SDK to initialise a (Stripe) session. The session gets passed through the process and is
         // used to identify this transaction.
         \Stripe\Stripe::setApiKey($this->getApiKey());
+        \Stripe\Stripe::setApiVersion(self::SUPPORTED_API_VERSION);
+
 
         $card = $this->getCard();
 

@@ -6,6 +6,8 @@ use Omnipay\Common\Message\AbstractRequest;
 
 abstract class AbstractCheckoutRequest extends AbstractRequest
 {
+    const SUPPORTED_API_VERSION = '2019-12-03';
+
     /**
      * Get the gateway API Key (the "secret key").
      *
