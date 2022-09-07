@@ -42,6 +42,7 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
     {
         // Retrieve the session that would have been started earlier.
         \Stripe\Stripe::setApiKey($this->getApiKey());
+        \Stripe\Stripe::setApiVersion(self::SUPPORTED_API_VERSION);
 
         $session = \Stripe\Checkout\Session::retrieve($this->sessionID);
         $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
