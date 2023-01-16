@@ -27,4 +27,24 @@ abstract class AbstractCheckoutRequest extends AbstractRequest
     {
         return $this->setParameter('apiKey', $value);
     }
+
+    /**
+     * Get this request's allowAllPaymentMethods setting
+     *
+     * @return bool|null
+     */
+    public function getAllowAllPaymentMethods()
+    {
+        return $this->getParameter('allowAllPaymentMethods');
+    }
+
+    /**
+     * Set the allowAllPaymentMethods setting, allowing for alternative payment methods such as Google Pay or Klarna
+     *
+     * @return AbstractRequest provides a fluent interface.
+     */
+    public function setAllowAllPaymentMethods(bool $value = false): AbstractRequest
+    {
+        return $this->setParameter('allowAllPaymentMethods', $value);
+    }
 }
