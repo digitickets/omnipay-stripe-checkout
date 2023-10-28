@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\Stripe\Messages;
+namespace Omnipay\StripeCheckout\Messages;
 
 class PurchaseRequest extends AbstractCheckoutRequest
 {

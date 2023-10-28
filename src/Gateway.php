@@ -1,14 +1,14 @@
 <?php
 
-namespace DigiTickets\Stripe;
+namespace Omnipay\StripeCheckout;
 
-use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
-use DigiTickets\Stripe\Messages\PurchaseRequest;
-use DigiTickets\Stripe\Messages\RefundRequest;
+use Omnipay\StripeCheckout\Messages\CompletePurchaseRequest;
+use Omnipay\StripeCheckout\Messages\PurchaseRequest;
+use Omnipay\StripeCheckout\Messages\RefundRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 
-class CheckoutGateway extends AbstractGateway
+class Gateway extends AbstractGateway
 {
     /**
      * Get the gateway API Key (the "secret key").

@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\Stripe\Lib;
+namespace \Omnipay\StripeCheckout\Lib;
 
 /**
  * This is a value object that handles the translation between a transaction reference and its components.

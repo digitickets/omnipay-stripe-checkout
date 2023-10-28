@@ -25,7 +25,7 @@
       "scpService": "lib"
     },
     "psr-4": {
-      "DigiTickets\\Stripe\\": "src",
+      "Omnipay\\StripeCheckout\\": "src",
       "DigiTickets\\StripeTests\\": "tests"
     }
   },

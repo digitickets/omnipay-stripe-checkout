@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\Stripe\Messages;
+namespace Omnipay\StripeCheckout\Messages;
 
 use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Common\Message\AbstractResponse;
