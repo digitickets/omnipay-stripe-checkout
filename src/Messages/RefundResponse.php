@@ -2,34 +2,29 @@
 
 namespace Omnipay\StripeCheckout\Messages;
 
-use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RequestInterface;
 
-class RefundResponse extends AbstractResponse
-{
+class RefundResponse extends AbstractResponse {
+
     /**
      * @var RefundRequest
      */
     protected $request;
-
     /**
      * @var bool
      */
     private $success = false;
-
+    private $pending = false;
     /**
      * @var string|null
      */
     private $message = null;
-
     /**
      * @var string|null
      */
-    private $transactionReference = null;
+    private $transactionId = null;
 
-    public function __construct(RefundRequest $request, $data)
-    {
+    public function __construct(RefundRequest $request, $data) {
         parent::__construct($request, $data);
 
         $refund = $data['refund'] ?? null;
@@ -41,19 +36,23 @@ class RefundResponse extends AbstractResponse
         if ($refund instanceof \Exception) {
             $this->success = false;
             $this->message = $refund->getMessage();
-        } elseif ($refund instanceof \Stripe\Refund) {
+        } else if ($refund instanceof \Stripe\Refund) {
             if ($refund->status === \Stripe\Refund::STATUS_SUCCEEDED) {
                 // Looks like it was okay.
                 $this->success = true;
                 $this->message = $refund->status;
-            } else {
+            }
+            else if ($refund->status === \Stripe\Refund::STATUS_PENDING) {
+                // Looks like it was okay, but still pending
+                $this->pending = true;
+                $this->message = $refund->status;
+            }
+            else {
                 // Looks like it failed for some reason. "Status" seems to be the only field we can use to convey any error.
                 $this->success = false;
                 $this->message = $refund->status;
             }
-            // For the reference, take the original payment reference (which consists of the session- and payment
-            // intent ids), and inject the refund id.
-            $this->transactionReference = ComplexTransactionRef::buildFromJson($request->getTransactionReference())->setRefundReference($refund->id)->asJson();
+            $this->transactionId = $refund->id;
         } else {
             // Something unexpected happened
             $this->success = false;
@@ -61,18 +60,19 @@ class RefundResponse extends AbstractResponse
         }
     }
 
-    public function isSuccessful()
-    {
+    public function isSuccessful() {
         return $this->success;
     }
 
-    public function getMessage()
-    {
+    public function isPending() {
+        return $this->pending;
+    }
+
+    public function getMessage() {
         return $this->message;
     }
 
-    public function getTransactionReference()
-    {
-        return $this->transactionReference;
+    public function getTransactionId() {
+        return $this->transactionId;
     }
 }

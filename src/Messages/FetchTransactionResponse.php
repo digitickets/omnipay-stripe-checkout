@@ -3,10 +3,8 @@
 namespace Omnipay\StripeCheckout\Messages;
 
 use Omnipay\Common\Message\AbstractResponse;
-use Omnipay\Common\Message\RequestInterface;
-use Stripe\PaymentIntent;
 
-class CompletePurchaseResponse extends AbstractResponse {
+class FetchTransactionResponse extends AbstractResponse {
 
     const STATUS_SUCCESS  = 'succeeded';
     const STATUS_CANCELED = 'requires_payment_method'; // As far as I can tell this is what we receive when the customer cancels the card form.
@@ -26,12 +24,12 @@ class CompletePurchaseResponse extends AbstractResponse {
      * @var string|null
      */
     private $code = null;
+
     /**
      * @var string|null
      */
-    private $internalTransactionRef;
 
-    public function __construct(CompletePurchaseRequest $request, $data) {
+    public function __construct(FetchTransactionRequest $request, $data) {
         parent::__construct($request, $data);
 
         if (isset($data['paymentIntent'])) {
@@ -67,16 +65,16 @@ class CompletePurchaseResponse extends AbstractResponse {
         return $this->successful;
     }
 
+    public function isCancelled() {
+        return !$this->successful;
+    }
+
     public function getMessage() {
         return $this->message;
     }
 
     public function getCode() {
         return $this->code;
-    }
-
-    public function getTransactionReference() {
-        return (new ComplexTransactionRef($this->request->getSessionID(), $this->internalTransactionRef))->asJson();
     }
 
     public function getTransactionId() {

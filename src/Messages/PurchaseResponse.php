@@ -2,7 +2,6 @@
 
 namespace Omnipay\StripeCheckout\Messages;
 
-use DigiTickets\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
@@ -13,15 +12,14 @@ use Stripe\Checkout\Session;
  * displays a page whch uses JavaScript to redirect.
  * The methods in this class have to reflect that.
  */
-class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
-{
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface {
+
     /**
      * @var Session|null $session
      */
     private $session = null;
 
-    public function __construct(RequestInterface $request, $data)
-    {
+    public function __construct(RequestInterface $request, $data) {
         parent::__construct($request, $data);
 
         if (isset($data['session']) && $data['session'] instanceof Session) {
@@ -31,56 +29,39 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         }
     }
 
-    public function setSession(Session $session)
-    {
+    public function setSession(Session $session) {
         $this->session = $session;
     }
 
-    public function getSessionID()
-    {
+    public function getSessionID() {
         return $this->session ? $this->session->id : null;
     }
 
-    public function isSuccessful()
-    {
+    public function isSuccessful() {
         return false;
     }
 
-    public function isRedirect()
-    {
+    public function isRedirect() {
         return true;
     }
 
-    public function getRedirectUrl(): string
-    {
-        return '';
+    public function getRedirectUrl(): string {
+        return $this->session ? ($this->session->url ?? '') : '';
     }
 
-    public function getRedirectMethod(): string
-    {
+    public function getRedirectMethod(): string {
         return 'GET';
     }
 
-    public function getRedirectData(): array
-    {
+    public function getRedirectData(): array {
         return [];
     }
 
-    public function redirect()
-    {
+    public function redirect() {
         // We explicitly do nothing here.
     }
 
-    /**
-     * The transation ref has to include the session and (later) the actual transaction ref. This is because the session
-     * is the only thing we have that will allow us to retrieve the payment later in the process (and therefore get the
-     * transaction ref.
-     * We encode it as JSON.
-     *
-     * @return string|null
-     */
-    public function getTransactionReference()
-    {
-        return (new ComplexTransactionRef($this->getSessionID()))->asJson();
+    public function getTransactionReference() {
+        return $this->session->payment_intent;
     }
 }
