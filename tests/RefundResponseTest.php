@@ -1,9 +1,9 @@
 <?php
 
-namespace DigiTickets\StripeTests;
+namespace Omnipay\StripeTests;
 
-use DigiTickets\Stripe\Messages\RefundRequest;
-use DigiTickets\Stripe\Messages\RefundResponse;
+use Omnipay\StripeCheckout\Messages\RefundRequest;
+use Omnipay\StripeCheckout\Messages\RefundResponse;
 use Mockery;
 use Omnipay\Tests\TestCase;
 use Stripe\Refund;

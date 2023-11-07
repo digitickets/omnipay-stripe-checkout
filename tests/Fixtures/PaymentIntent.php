@@ -1,6 +1,6 @@
 <?php
 
-namespace DigiTickets\StripeTests\Fixtures;
+namespace Omnipay\StripeTests\Fixtures;
 
 /**
  * This emulates a Stripe Payment Intent (which has about a million elements). We only need two public properties,

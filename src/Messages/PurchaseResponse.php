@@ -9,7 +9,7 @@ use Stripe\Checkout\Session;
 
 /**
  * This payment gateway is essentially a "soft" redirect. In other words, the client makes a purchase request, then
- * displays a page whch uses JavaScript to redirect.
+ * displays a page which uses JavaScript to redirect.
  * The methods in this class have to reflect that.
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface {

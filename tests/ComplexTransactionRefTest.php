@@ -1,8 +1,8 @@
 <?php
 
-namespace DigiTickets\StripeTests;
+namespace Omnipay\StripeTests;
 
-use DigiTickets\Stripe\Lib\ComplexTransactionRef;
+use Omnipay\Stripe\Lib\ComplexTransactionRef;
 use Omnipay\Tests\TestCase;
 
 class ComplexTransactionRefTest extends TestCase

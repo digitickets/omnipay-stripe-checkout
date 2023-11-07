@@ -1,10 +1,10 @@
 <?php
 
-namespace DigiTickets\StripeTests;
+namespace Omnipay\StripeTests;
 
-use DigiTickets\Stripe\Messages\CompletePurchaseRequest;
-use DigiTickets\Stripe\Messages\PurchaseResponse;
-use DigiTickets\StripeTests\Fixtures\Request;
+use Omnipay\StripeCheckout\Messages\CompletePurchaseRequest;
+use Omnipay\StripeCheckout\Messages\PurchaseResponse;
+use Omnipay\StripeTests\Fixtures\Request;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
 use Stripe\Checkout\Session;
