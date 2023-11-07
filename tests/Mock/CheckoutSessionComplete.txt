@@ -1,0 +1,123 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 7 Nov 2023 21:37:26 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store
+
+{
+  "id": "evt_1O9qm54Clds3ZoJoIupgIqF0",
+  "object": "event",
+  "api_version": "2014-03-28",
+  "created": 1699369264,
+  "data": {
+    "object": {
+      "id": "session_id_session_complete",
+      "object": "checkout.session",
+      "after_expiration": null,
+      "allow_promotion_codes": false,
+      "amount_subtotal": 1000,
+      "amount_total": 1000,
+      "automatic_tax": {
+        "enabled": false,
+        "status": null
+      },
+      "billing_address_collection": "auto",
+      "cancel_url": "https://stripe.com",
+      "client_reference_id": null,
+      "client_secret": null,
+      "consent": null,
+      "consent_collection": {
+        "promotions": "none",
+        "terms_of_service": "none"
+      },
+      "created": 1699369017,
+      "currency": "eur",
+      "currency_conversion": null,
+      "custom_fields": [
+      ],
+      "custom_text": {
+        "shipping_address": null,
+        "submit": null,
+        "terms_of_service_acceptance": null
+      },
+      "customer": "cus_OxmG3UzI5Cyvzn",
+      "customer_creation": "always",
+      "customer_details": {
+        "address": {
+          "city": null,
+          "country": null,
+          "line1": null,
+          "line2": null,
+          "postal_code": null,
+          "state": null
+        },
+        "email": "tom@eventix.nl",
+        "name": "test",
+        "phone": null,
+        "tax_exempt": "none",
+        "tax_ids": [
+        ]
+      },
+      "customer_email": null,
+      "expires_at": 1699455417,
+      "invoice": null,
+      "invoice_creation": {
+        "enabled": false,
+        "invoice_data": {
+          "account_tax_ids": null,
+          "custom_fields": null,
+          "description": null,
+          "footer": null,
+          "metadata": {
+          },
+          "rendering_options": null
+        }
+      },
+      "livemode": false,
+      "locale": "auto",
+      "metadata": {
+      },
+      "mode": "payment",
+      "payment_intent": "payment_intent_id_session_complete",
+      "payment_link": "plink_1O9qhx4Clds3ZoJouLJCFU1A",
+      "payment_method_collection": "always",
+      "payment_method_configuration_details": {
+        "id": "pmc_1KBigC4Clds3ZoJoT1RC9YuI",
+        "parent": null
+      },
+      "payment_method_options": {
+      },
+      "payment_method_types": [
+        "card",
+        "ideal",
+        "klarna"
+      ],
+      "payment_status": "paid",
+      "phone_number_collection": {
+        "enabled": false
+      },
+      "recovered_from": null,
+      "setup_intent": null,
+      "shipping": null,
+      "shipping_address_collection": null,
+      "shipping_options": [
+      ],
+      "shipping_rate": null,
+      "status": "complete",
+      "submit_type": "auto",
+      "subscription": null,
+      "success_url": "https://stripe.com",
+      "total_details": {
+        "amount_discount": 0,
+        "amount_shipping": 0,
+        "amount_tax": 0
+      },
+      "ui_mode": "hosted",
+      "url": null
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 4,
+  "request": null,
+  "type": "checkout.session.completed"
+}

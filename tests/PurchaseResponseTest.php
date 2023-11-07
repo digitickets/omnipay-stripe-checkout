@@ -2,64 +2,56 @@
 
 namespace Omnipay\StripeTests;
 
-use Omnipay\StripeCheckout\Messages\CompletePurchaseRequest;
 use Omnipay\StripeCheckout\Messages\PurchaseResponse;
-use Omnipay\StripeTests\Fixtures\Request;
-use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Tests\TestCase;
-use Stripe\Checkout\Session;
 
 class PurchaseResponseTest extends TestCase
 {
-    const SESSION_ID_1 = 'S101';
 
-    public function creationProvider()
+    public function testCheckoutSessionAsyncPaymentFailed()
     {
-        $request = new Request();
-        $session = new Session(self::SESSION_ID_1);
+        $httpResponse = $this->getMockHttpResponse('CheckoutSessionAsyncPaymentFailed.txt');
+        $response = new PurchaseResponse($this->getMockRequest(), (string) $httpResponse->getBody());
 
-        return [
-            'no session' => [$request, [], null],
-            'with session' => [
-                $request,
-                ['session' => $session],
-                self::SESSION_ID_1
-            ],
-        ];
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('payment_intent_id_session_async_failed', $response->getTransactionReference());
+        $this->assertSame('session_id_session_async_failed', $response->getSessionID());
     }
 
-    /**
-     * @param RequestInterface $request
-     * @param $data
-     * @param string|null $expectedSessionID
-     *
-     * @dataProvider creationProvider
-     */
-    public function testCreation(RequestInterface $request, $data, string $expectedSessionID = null)
+    public function testCheckoutSessionAsyncPaymentSuccess()
     {
-        // I can't seem to get $this->expectException() to work, so I'm having to do it manually.
-        try {
-            $purchaseResponse = new PurchaseResponse($request, $data);
-            $this->assertNotNull($expectedSessionID); // If it gets here, we expect the session to be present.
-        } catch (\InvalidArgumentException $e) {
-            // It will throw this exception if the session is not present.
-            $this->assertNull($expectedSessionID);
+        $httpResponse = $this->getMockHttpResponse('CheckoutSessionAsyncPaymentSuccess.txt');
+        $response = new PurchaseResponse($this->getMockRequest(), (string) $httpResponse->getBody());
 
-            return; // Stop the test now.
-        }
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('payment_intent_id_session_async_success', $response->getTransactionReference());
+        $this->assertSame('session_id_session_async_success', $response->getSessionID());
+    }
 
-        // Check the session id.
-        $this->assertEquals($expectedSessionID, $purchaseResponse->getSessionID());
+    public function testCheckoutSessionComplete()
+    {
+        $httpResponse = $this->getMockHttpResponse('CheckoutSessionComplete.txt');
+        var_dump((string) $httpResponse->getBody());
+        $response = new PurchaseResponse($this->getMockRequest(), (string) $httpResponse->getBody());
 
-        // Check the responses to various other methods, that are all return hard-coded values.
-        $this->assertFalse($purchaseResponse->isSuccessful());
-        $this->assertTrue($purchaseResponse->isRedirect());
-        $this->assertEquals('', $purchaseResponse->getRedirectUrl());
-        $this->assertEquals('GET', $purchaseResponse->getRedirectMethod());
-        $this->assertEquals([], $purchaseResponse->getRedirectData());
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('payment_intent_id_session_complete', $response->getTransactionReference());
+        $this->assertSame('session_id_session_complete', $response->getSessionID());
+    }
 
-        // Check the transaction reference.
-        $txRef = $purchaseResponse->getTransactionReference();
-        $this->assertEquals(sprintf('{"sessionId":"%s"}', $expectedSessionID), $txRef);
+    public function testCheckoutSessionCreated()
+    {
+        $httpResponse = $this->getMockHttpResponse('CheckoutSessionCreated.txt');
+        $response = new PurchaseResponse($this->getMockRequest(), (string) $httpResponse->getBody());
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
+        $this->assertSame('redirect_url_session_created', $response->getRedirectUrl());
+        $this->assertSame('GET', $response->getRedirectMethod());
+        $this->assertSame('payment_intent_id_session_created', $response->getTransactionReference());
+        $this->assertSame('session_id_session_created', $response->getSessionID());
     }
 }

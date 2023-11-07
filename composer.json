@@ -26,7 +26,7 @@
     },
     "psr-4": {
       "Omnipay\\StripeCheckout\\": "src",
-      "DigiTickets\\StripeTests\\": "tests"
+      "Omnipay\\StripeTests\\": "tests"
     }
   },
   "require": {
@@ -45,5 +45,10 @@
     "run-sa": "vendor/bin/phpstan analyse --ansi --no-progress -c phpstan.neon -l 4 src tests",
     "run-fixer": "vendor/bin/php-cs-fixer fix",
     "run-tests": "vendor/bin/phpunit"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }
