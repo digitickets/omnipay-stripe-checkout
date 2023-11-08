@@ -3,6 +3,7 @@
 namespace Omnipay\StripeCheckout;
 
 use Omnipay\StripeCheckout\Messages\CompletePurchaseRequest;
+use Omnipay\StripeCheckout\Messages\FetchRefundRequest;
 use Omnipay\StripeCheckout\Messages\FetchTransactionRequest;
 use Omnipay\StripeCheckout\Messages\PurchaseRequest;
 use Omnipay\StripeCheckout\Messages\RefundRequest;
@@ -61,6 +62,10 @@ class Gateway extends AbstractGateway {
 
     public function fetchTransaction(array $parameters = []): RequestInterface {
         return $this->createRequest(FetchTransactionRequest::class, $parameters);
+    }
+
+    public function fetchRefund(array $parameters = []): RequestInterface {
+        return $this->createRequest(FetchRefundRequest::class, $parameters);
     }
 
     public function refund(array $parameters = []): RequestInterface {
