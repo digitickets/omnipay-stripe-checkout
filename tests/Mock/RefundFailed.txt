@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 7 Nov 2023 21:37:26 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store
+
+{
+  "id": "refund_id_refund_success",
+  "object": "refund",
+  "amount": 300,
+  "balance_transaction": null,
+  "charge": "charge_id_refund_failed",
+  "created": 1565967530,
+  "currency": "eur",
+  "metadata": {},
+  "payment_intent": "payment_intent_id_refund_failed",
+  "reason": "expired_uncaptured_charge",
+  "receipt_number": null,
+  "source_transfer_reversal": null,
+  "status": "failed",
+  "transfer_reversal": null
+}

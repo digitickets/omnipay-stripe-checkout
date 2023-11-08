@@ -5,7 +5,7 @@ Content-Type: application/json
 Cache-Control: no-cache, no-store
 
 {
-  "id": "session_id_session_complete",
+  "id": "session_id_session_created",
   "object": "checkout.session",
   "after_expiration": null,
   "allow_promotion_codes": null,
@@ -48,7 +48,7 @@ Cache-Control: no-cache, no-store
   "locale": null,
   "metadata": {},
   "mode": "payment",
-  "payment_intent": "payment_intent_id_session_complete",
+  "payment_intent": "payment_intent_id_session_created",
   "payment_link": null,
   "payment_method_collection": null,
   "payment_method_configuration_details": null,
@@ -56,7 +56,7 @@ Cache-Control: no-cache, no-store
   "payment_method_types": [
     "card"
   ],
-  "payment_status": "paid",
+  "payment_status": "unpaid",
   "phone_number_collection": {
     "enabled": false
   },
@@ -66,11 +66,11 @@ Cache-Control: no-cache, no-store
   "shipping_cost": null,
   "shipping_details": null,
   "shipping_options": [],
-  "status": "complete",
+  "status": "open",
   "submit_type": null,
   "subscription": null,
   "success_url": "https://example.com/success",
   "total_details": null,
   "ui_mode": "hosted",
-  "url": "redirect_url_session_complete"
+  "url": "redirect_url_session_created"
 }

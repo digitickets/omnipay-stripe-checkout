@@ -20,14 +20,10 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     private $session = null;
 
     public function __construct(RequestInterface $request, $data) {
-        parent::__construct($request, json_decode($data, true));
+        parent::__construct($request, $data);
 
-        if (isset($this->data['data']) && isset($this->data['data']['object'])
-            && isset($this->data['data']['object']['object'])
-            && $this->data['data']['object']['object'] == Session::OBJECT_NAME) {
-            $session = new Session();
-            $session->updateAttributes($this->data['data']['object']);
-            $this->setSession($session);
+        if (isset($data) && isset($data['session']) && $data['session'] instanceof Session) {
+            $this->setSession($data['session']);
         } else {
             throw new \InvalidArgumentException('A valid Session must be supplied');
         }
@@ -43,8 +39,8 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function isSuccessful() {
         return ($this->session->payment_status == $this->session::PAYMENT_STATUS_PAID
-            || $this->session->payment_status == $this->session::PAYMENT_STATUS_NO_PAYMENT_REQUIRED)
-            && $this->session->status == $this->session::STATUS_COMPLETE;
+                || $this->session->payment_status == $this->session::PAYMENT_STATUS_NO_PAYMENT_REQUIRED)
+                && $this->session->status == $this->session::STATUS_COMPLETE;
     }
 
     public function isRedirect() {

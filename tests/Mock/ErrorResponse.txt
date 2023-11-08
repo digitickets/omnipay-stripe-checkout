@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 7 Nov 2023 21:37:26 GMT
+Content-Type: application/json
+Cache-Control: no-cache, no-store
+
+{
+  "type": "api_error",
+  "code": "401",
+  "message": "error_message"
+}

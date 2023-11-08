@@ -47,6 +47,7 @@ class PurchaseRequest extends AbstractCheckoutRequest {
                     )
                 )
             ),
+            'currency'             => $this->getCurrency(),
             'success_url'          => $this->getReturnUrl(),
             'cancel_url'           => $this->getCancelUrl(),
         ];
@@ -58,7 +59,6 @@ class PurchaseRequest extends AbstractCheckoutRequest {
         // We use Stripe's SDK to initialise a (Stripe) session. The session gets passed through the process and is
         // used to identify this transaction.
         \Stripe\Stripe::setApiKey($this->getApiKey());
-
         $session = \Stripe\Checkout\Session::create($data);
 
         return $this->response = new PurchaseResponse($this, ['session' => $session]);
