@@ -13,7 +13,7 @@ class FetchRefundResponse extends AbstractResponse {
      */
     protected $refund = null;
 
-    public function __construct(FetchTransactionRequest $request, $data) {
+    public function __construct(FetchRefundRequest $request, $data) {
         parent::__construct($request, $data);
 
         if (isset($data) && isset($data['refund']) && $data['refund'] instanceof Refund) {
