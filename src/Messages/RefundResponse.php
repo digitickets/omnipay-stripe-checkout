@@ -35,13 +35,18 @@ class RefundResponse extends AbstractResponse {
             && $this->refund->status == Refund::STATUS_PENDING;
     }
 
+    public function isCancelled() {
+        return isset($this->refund) && isset($this->refund->status)
+            && $this->refund->status == Refund::STATUS_CANCELED;
+    }
+
     public function getMessage() {
         return isset($this->refund) && isset($this->refund->status)
             ? $this->refund->status : null;
     }
 
     public function getTransactionId() {
-        return isset($this->refund) && isset($this->refund->status)
+        return isset($this->refund) && isset($this->refund->payment_intent)
             ? $this->refund->payment_intent : null;
     }
 }

@@ -9,7 +9,7 @@ namespace Omnipay\StripeCheckout\Messages;
  *
  * @method FetchRefundRequest send()
  */
-class FetchRefundRequest extends AbstractCheckoutRequest {
+class FetchRefundRequest extends RefundRequest {
 
     /**
      * @return array
@@ -27,11 +27,8 @@ class FetchRefundRequest extends AbstractCheckoutRequest {
     }
 
     public function sendData($data) {
-        // Retrieve the session that would have been started earlier.
         \Stripe\Stripe::setApiKey($this->getApiKey());
-
         $refund = \Stripe\Refund::retrieve($data['refund']);
-
         return $this->response = new FetchRefundResponse($this, ['refund' => $refund]);
     }
 }
