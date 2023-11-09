@@ -21,18 +21,8 @@ class RefundRequest extends AbstractCheckoutRequest {
     }
 
     public function sendData($data) {
-        // We use Stripe's SDK to initialise a (Stripe) session.
         \Stripe\Stripe::setApiKey($this->getApiKey());
-
-        try {
-            $refund = \Stripe\Refund::create($data);
-        } catch (\Exception $e) {
-            // Stripe wasn't happy about something. In theory, the exception will be a subclass of
-            // \Stripe\Exception\ApiErrorException, but there's no harm in catching every exception, because the
-            // response object only needs the message.
-            $refund = $e;
-        }
-
+        $refund = \Stripe\Refund::create($data);
         return $this->response = new RefundResponse($this, ['refund' => $refund]);
     }
 }
