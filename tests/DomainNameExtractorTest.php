@@ -12,8 +12,8 @@ class DomainNameExtractorTest extends TestCase
     {
         return [
             'subdomain' => ['https://sub.test.com', 'test.com'],
-            'subdomain with path in url' => ['https://sub.test.com/test?test=test', 'test.com'],
-            'subdomain with path in url2' => ['https://sub.test.com/', 'test.com'],
+            'subdomain with path in url' => ['https://sub.test.com/test?test=test', 'test.com/test'],
+            'subdomain with path in url2' => ['https://sub.test.com/', 'test.com/'],
             'subdomain with more dots' => ['https://sub.test.co.uk', 'test.co.uk'],
             'short domain' => ['https://sub.aa.co.uk', 'aa.co.uk'],
             'short domain2' => ['https://sub.aaa.com', 'aaa.com'],
@@ -36,7 +36,7 @@ class DomainNameExtractorTest extends TestCase
      */
     public function testExtractBaseDomain(string $url, string $expectedBaseDomain)
     {
-        $baseDomain = DomainNameExtractor::extractBaseDomain($url);
+        $baseDomain = DomainNameExtractor::extractBaseDomainAndPath($url);
         $this->assertEquals($expectedBaseDomain, $baseDomain);
     }
 }
