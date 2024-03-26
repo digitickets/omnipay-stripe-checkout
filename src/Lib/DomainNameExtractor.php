@@ -11,9 +11,10 @@ class DomainNameExtractor {
      *
      * @return string
      */
-    public static function extractBaseDomain(string $url) : string {
+    public static function extractBaseDomainAndPath(string $url) : string {
         $parsedUrl = parse_url($url);
         $host = $parsedUrl['host'] ?? '';
+        $path = $parsedUrl['path'] ?? '';
         $baseDomain = $host;
 
         // Check if it might have a subdomain
@@ -25,7 +26,7 @@ class DomainNameExtractor {
                 $baseDomain = $host;
             }
         }
-        return $baseDomain;
+        return $baseDomain . $path;
     }
 
 }

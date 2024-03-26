@@ -41,11 +41,11 @@ class RegisterWebhookRequest extends AbstractCheckoutRequest
 
     /**
      * Retrieve the existing webhook set up on the account (if it exists).
-     * It will remove any old webhooks with the same base domain (so any that are no longer valid).
+     * It will remove any old webhooks with the same base domain and path (so any that are no longer valid by subdomain).
      * It will only remove these webhooks properly if your notify URL follow the following conditions (otherwise you have to remove them outside the driver if you need to):
      *  - Your base domain is 4 or more chars long (excluding tld).
      *  - You only have one subdomain element. If you have more, only the first is removed for matching purposes.
-     * It will also remove any duplicate webhooks that match the domain.
+     * It will also remove any duplicate webhooks that match the domain and path.
      *
      * @param StripeClient $stripe
      *
@@ -57,7 +57,7 @@ class RegisterWebhookRequest extends AbstractCheckoutRequest
         $newWebhookUrl = $this->getNotifyUrl();
 
         // Extract the base domain from the url (excluding any subdomain)
-        $baseDomain = DomainNameExtractor::extractBaseDomain($newWebhookUrl);
+        $baseDomain = DomainNameExtractor::extractBaseDomainAndPath($newWebhookUrl);
 
         $webhooks = $stripe->webhookEndpoints->all(['limit' => 100])->data;
         $existingWebhook = [];
