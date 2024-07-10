@@ -2,6 +2,8 @@
 
 namespace DigiTickets\Stripe\Messages;
 
+use Stripe\Customer;
+
 class PurchaseRequest extends AbstractCheckoutRequest
 {
     private function nullIfEmpty(string $value = null)
@@ -27,6 +29,16 @@ class PurchaseRequest extends AbstractCheckoutRequest
 
         $card = $this->getCard();
 
+        // Note this works fine even if all fields are blank.
+        $response = Customer::create([
+                'email' => $card->getEmail(),
+                'name' => $card->getName(),
+                'phone' => $card->getPhone(),
+            ]
+        );
+
+        $customerID = $response->id;
+
         // Initiate the session.
         // Unfortunately (and very, very annoyingly), the API does not allow negative- or zero value items in the
         // cart, so we have to filter them out (and re-index them) before we build the line items array.
@@ -35,7 +47,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
-                'customer_email' => $card->getEmail(),
+                'customer' => $customerID,
                 'payment_method_types' => $this->getAllowAllPaymentMethods() ? null : ['card'],
                 'payment_intent_data' => [
                     'description' => $this->getDescription(),
