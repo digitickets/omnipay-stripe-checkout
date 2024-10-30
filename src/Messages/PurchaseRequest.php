@@ -2,6 +2,8 @@
 
 namespace DigiTickets\Stripe\Messages;
 
+use DateInterval;
+use DateTime;
 use Stripe\Customer;
 
 class PurchaseRequest extends AbstractCheckoutRequest
@@ -39,6 +41,12 @@ class PurchaseRequest extends AbstractCheckoutRequest
 
         $customerID = $response->id;
 
+        // Expire payment session after 30mins (30mins is minimum). Default is 24hrs.
+        $expiresAt = new DateTime();
+        $expiresAt->add(new DateInterval('PT30M'));
+        // Add 5s to allow for any clocks being slightly out of sync
+        $expiresAt->add(new DateInterval('PT5S'));
+
         // Initiate the session.
         // Unfortunately (and very, very annoyingly), the API does not allow negative- or zero value items in the
         // cart, so we have to filter them out (and re-index them) before we build the line items array.
@@ -47,6 +55,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
         $session = \Stripe\Checkout\Session::create(
             [
                 'client_reference_id' => $this->getTransactionId(),
+                'expires_at' => $expiresAt->getTimestamp(),
                 'customer' => $customerID,
                 'payment_method_types' => $this->getAllowAllPaymentMethods() ? null : ['card'],
                 'payment_intent_data' => [
