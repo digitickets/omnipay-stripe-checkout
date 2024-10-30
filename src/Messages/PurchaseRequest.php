@@ -43,7 +43,7 @@ class PurchaseRequest extends AbstractCheckoutRequest
 
         // Expire payment session after 30mins (30mins is minimum). Default is 24hrs.
         $expiresAt = new DateTime();
-        $expiresAt->add(new DateInterval('PT31M'));
+        $expiresAt->add(new DateInterval('PT30M'));
         // Add 5s to allow for any clocks being slightly out of sync
         $expiresAt->add(new DateInterval('PT5S'));
 
